@@ -4,7 +4,8 @@
 void testProto(int *intVal, float *floatVal, float *floatArr, int *floatArrLen) {
     printf("%d %.2f %d\n", *intVal, *floatVal, *floatArrLen);
     for (int i = 0; i < *floatArrLen; i++) {
-        printf("%.2f ", *(floatArr++));
+        printf("%.2f ", *floatArr);
+        *(floatArr++) = (float) i; //Test modifying stored value
     }
     printf("\n");
 }
