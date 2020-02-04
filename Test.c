@@ -24,3 +24,32 @@ JNIEXPORT void JNICALL Java_Test_func
 
     (*env)->ReleaseFloatArrayElements(env, floatArr, floatArrC, 0);
 }
+
+/*
+ *  * Class:     Test
+ *   * Method:    getArr
+ *    * Signature: (II)[[F
+ *     */
+JNIEXPORT jobjectArray JNICALL Java_Test_getArr
+  (JNIEnv *env, jobject object, jint numRows, jint numCols) {
+    jclass floatClass = (*env)->FindClass(env, "[F");
+
+    // Create the returnable 2D array
+    jobjectArray jObjarray = (*env)->NewObjectArray(env, numRows, floatClass, NULL);
+
+    // Go through the first dimension and add the second dimension arrays
+    int n = 0;
+    for (int row = 0; row < numRows; row++) {
+        float cols[numCols];
+        for (int col = 0; col < numCols; col++) {
+            cols[col] = n++;
+        }
+
+        jfloatArray floatArray = (*env)->NewFloatArray(env, numCols);
+        (*env)->SetFloatArrayRegion(env, floatArray, (jsize) 0, (jsize) numCols, (jfloat*) cols);
+        (*env)->SetObjectArrayElement(env, jObjarray, (jsize) row, floatArray);
+        (*env)->DeleteLocalRef(env, floatArray);
+    }
+
+    return jObjarray;
+}

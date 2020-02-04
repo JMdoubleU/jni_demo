@@ -9,8 +9,17 @@ public class Test {
             System.out.print(data[i] + " ");
         }
         System.out.println();
+
+        float[][] ndata = new Test().getArr(10, 3);
+        for (int i = 0; i < ndata.length; i++) {
+            for (int j = 0; j < ndata[i].length; j++) {
+               System.out.print(ndata[i][j] + " "); 
+            }
+            System.out.println();
+        }
     }
 
     public native void func(int intVal, float floarVal, float[] floatArr);
 
+    public native float[][] getArr(int numRows, int numCols);
 }

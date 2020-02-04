@@ -7,9 +7,18 @@ object TestRunner {
             print(floatVal + " ");
         }
         println();
+
+        val ndata: Array[Array[Float]] = new Test().getArr(10, 3);
+        for (row <- ndata) {
+            for (colVal <- row) {
+                print(colVal + " ");
+            }
+            println();
+        }
     }
 }
 
 class Test {
-    @native def func(intVal: Int, floatVal: Float, floatArr: Array[Float]) {}
+    @native def func(intVal: Int, floatVal: Float, floatArr: Array[Float]): Unit
+    @native def getArr(numRows: Int, numCols: Int): Array[Array[Float]]
 }
