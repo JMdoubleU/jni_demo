@@ -3,7 +3,9 @@
 ./clean.sh
 javac Test.java
 javah Test
-gcc -std=c11 -shared -fPIC -I/usr/lib/jvm/java-8-openjdk-amd64/include -I/usr/lib/jvm/java-8-openjdk-amd64/include/linux Test.c -o libTest.so
+gfortran -fPIC -c Test.f -o Test_f.o
+gcc -std=c11 -fPIC -c -I/usr/lib/jvm/java-8-openjdk-amd64/include -I/usr/lib/jvm/java-8-openjdk-amd64/include/linux Test.c -o Test_c.o
+gfortran -shared Test_f.o Test_c.o -o libTest.so
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)
 export LD_LIBRARY_PATH
 java Test

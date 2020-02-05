@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rm -f *.so *.h *.class
+rm -f *.so *.h *.class *.o

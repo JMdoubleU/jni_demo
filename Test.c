@@ -1,6 +1,8 @@
 #include "Test.h"
 #include <stdio.h>
 
+void tsub_(int *itest); //fortran func
+
 void testProto(int *intVal, float *floatVal, float *floatArr, int *floatArrLen) {
     printf("%d %.2f %d\n", *intVal, *floatVal, *floatArrLen);
     for (int i = 0; i < *floatArrLen; i++) {
@@ -21,6 +23,8 @@ JNIEXPORT void JNICALL Java_Test_func
     jint floatArrCLen = (*env)->GetArrayLength(env, floatArr);
 
     testProto(&intVal, &floatVal, floatArrC, &floatArrCLen);
+    tsub_(&intVal);
+    printf("AFTER F: %d\n", intVal);
 
     (*env)->ReleaseFloatArrayElements(env, floatArr, floatArrC, 0);
 }
